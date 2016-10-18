@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Zurb foundation framework -->
+		<link rel="stylesheet" href="css/foundation.css">
+        <link rel="stylesheet" href="css/app.css">
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/vendor/what-input.js"></script>
+        <script src="js/vendor/foundation.js"></script>
+        <script src="js/app.js"></script>
+
+        <!-- responsive-tables addon -->
+        <link rel="stylesheet" href="responsive-tables/responsive-tables.css">
+        <script type="text/javascript" src="responsive-tables/responsive-tables.js"></script>
+
+        <script type="text/javascript">
+            $(function() {
+                $.getJSON('/microservice.php/products', function(responseObj, noop, jqXHR) {
+                    $('div.loading').fadeOut(function() {
+                        $('div.data').removeClass('hide').hide().fadeIn();
+                    });
+
+                    if (jqXHR.status != 200) {
+                        $('.apiError').removeClass('hide');
+                    }
+
+                    if (responseObj.products.length > 0) {
+                        $.each(responseObj.products, function(index, product) {
+                            var row = $('table.products tr.example').clone();
+                            
+                            $(row).find('td.title').html(product.title);
+                            $(row).find('td.bodyContent').html(product.body_html);
+                            $(row).find('td.vendor').html(product.vendor);
+                            $(row).find('td.productType').html(product.product_type);
+                            $(row).removeClass('hide example');
+
+                            $('table.products').append(row);
+                        });
+
+                        $('table.products').removeClass('hide');
+                    } else {
+                        $('.noProducts').removeClass('hide');
+                    }
+                });
+            });
+        </script>
+        <style>
+            .hide {
+                display: none;
+            }
+
+            div.loading {
+                margin-top: 0.5em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="loading">
+            <div class="row">
+                <div class="large-12 columns">
+                    <div class="callout">
+                        <h5>Please wait, loading</h5>
+                        <p>We are retrieving data from the Shopify API</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="data hide">
+            <div class="row">
+                <div class="large-12 columns">
+                    <h1>Shopify products list</h1>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    <table class="products responsive hide">
+                        <tbody>
+                            <tr>
+                                <th>Title</th>
+                                <th>Body content</th>
+                                <th>Vendor</th>
+                                <th>Product type</th>
+                            </tr>
+                            <tr class="example hide">
+                                <td class="title"></th>
+                                <td class="bodyContent"></th>
+                                <td class="vendor"></th>
+                                <td class="productType"></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="callout noProducts hide">
+                        <h5>No products found</h5>
+                        <p>We couldn't find any products in the given Shoppify store.</p>
+                    </div>
+                    <div class="callout apiError alert hide">
+                        <h5>Error loading product data</h5>
+                        <p>We couldn't query the products microservice. Are you a developer? Check if <a href="/microservice.php/products">this page</a> accessible?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>
+
