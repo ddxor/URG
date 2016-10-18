@@ -1,0 +1,6 @@
+{
+    "require": {
+        "silex/silex": "~2.0",
+        "nategood/httpful": "^0.2.20"
+    }
+}
