@@ -32,5 +32,5 @@ If time and requirements allowed:
 3. Some unit tests written in PHPUnit
 4. A UAT written in [behat](http://behat.org/en/latest/)
 5. Caching or smarter handling of validation of input on the backend. Input is passed blindly to Shopify in the spirit of a microservice but this could be improved
-6. A real-time image upload progress indicator
+6. Image upload functionality & a real-time image upload progress indicator
 7. A full blown MVC/MVVM framework like Laravel or Zend Framework
