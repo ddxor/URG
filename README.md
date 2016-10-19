@@ -16,11 +16,11 @@ Clone the repository and from the repo's root directory run `composer install` f
 Technology used
 ==
 
-[Silex micro-framework](http://silex.sensiolabs.org/) used to create the microservice backend. Silex is based on Symfony
-[Foundation](http://foundation.zurb.com) as a responsive frontend framework
-[jQuery](https://jquery.com/) for interactive elements
-[Composer](https://getcomposer.org/) for PHP dependency management
-[Httpful](http://phphttpclient.com/) for a friendly & convenient REST-orientated HTTP client
+1. [Silex micro-framework](http://silex.sensiolabs.org/) used to create the microservice backend. Silex is based on Symfony
+2. [Foundation](http://foundation.zurb.com) as a responsive frontend framework
+3. [jQuery](https://jquery.com/) for interactive elements
+4. [Composer](https://getcomposer.org/) for PHP dependency management
+5. [Httpful](http://phphttpclient.com/) for a friendly & convenient REST-orientated HTTP client
 
 To-do/Nice-to-have's
 ==
