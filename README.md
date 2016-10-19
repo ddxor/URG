@@ -1,3 +1,8 @@
+Rationale
+==
+
+For such a simple one-off 1-page app it didn't really make sense to use a full blown MVC framework like Laravel or Zend Framework. The Shopify REST API is also quite straightforward; so I opted to design a backend microservice using [Silex](http://silex.sensiolabs.org/) and the frontend using some industry standard technology like [Foundation](http://foundation.zurb.com/) and [jQuery](https://jquery.com/). In the spirit of a microservice the backend isn't very "smart" in itself, and fundamentally just acts as a proxy to the Shopify Product API. A larger project would obviously require a more sophisticated backend. See the "To-do/Nice-to-have's" for more ideas on this. The frontend is responsive and the backend microservice is designed to operate like a REST API (with limited list+create functionality).
+
 Intro
 ==
 
@@ -11,7 +16,11 @@ Clone the repository and from the repo's root directory run `composer install` f
 Technology used
 ==
 
-[Silex micro-framework](http://silex.sensiolabs.org/) used to create the microservice backend
+[Silex micro-framework](http://silex.sensiolabs.org/) used to create the microservice backend. Silex is based on Symfony
+[Foundation](http://foundation.zurb.com) as a responsive frontend framework
+[jQuery](https://jquery.com/) for interactive elements
+[Composer](https://getcomposer.org/) for PHP dependency management
+[Httpful](http://phphttpclient.com/) for a friendly & convenient REST-orientated HTTP client
 
 To-do/Nice-to-have's
 ==
@@ -24,3 +33,4 @@ If time and requirements allowed:
 4. A UAT written in [behat](http://behat.org/en/latest/)
 5. Caching or smarter handling of validation of input on the backend. Input is passed blindly to Shopify in the spirit of a microservice but this could be improved
 6. A real-time image upload progress indicator
+7. A full blown MVC/MVVM framework like Laravel or Zend Framework

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Zurb foundation framework -->
+		<link rel="stylesheet" href="css/foundation.css">
+        <link rel="stylesheet" href="css/app.css">
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/vendor/what-input.js"></script>
+        <script src="js/vendor/foundation.js"></script>
+        <script src="js/app.js"></script>
+    
+        <script src="tinymce/js/tinymce/tinymce.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                tinymce.init({
+                    selector: 'textarea'
+                });
+
+                var productCreator = new productCreatorHandler();
+                
+                $('form button.submit').on('click', function() {
+                    var $form = $('form');
+
+                    productCreator.setParam('title', $form.find('input[name=title]').val());
+                    productCreator.setParam('body_html', tinymce.get('body_html').getContent());
+                    productCreator.setParam('vendor', $form.find('input[name=vendor]').val());
+                    productCreator.setParam('product_type', $form.find('input[name=product_type]').val());
+
+                    var result = productCreator.submit();
+
+                    console.log(result);
+                    if (result) {
+                        window.location = '/';
+                    }
+                });
+
+                $(document).keypress(function(e) {
+                    if (e.which == 13) {
+                        $('form button').trigger('click');
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="row">
+            <div class="large-12 columns">
+                <h1>Create new product</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="callout apiError alert hide">
+                <h5>Error accessing products microservice</h5>
+                <p>We couldn't query the products microservice. Are you a developer? Check if <a href="/microservice.php/products">this page</a> accessible?</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="callout formError alert hide">
+                <h5>Error with form inputs</h5>
+                <ul>
+                </ul>
+            </div>
+        </div>
+
+        <form>
+            <div class="row">
+                <div class="large-12 columns">
+                    <label>Title
+                        <input name="title" type="text" placeholder="E.g. 'iPhone 5s'">
+                    </label>
+                </div>
+                <div class="large-12 columns tinyMceContainer">
+                    <label>Body content
+                        <textarea name="body_html" rows="8"></textarea>
+                    </label>
+                </div>
+                <div class="large-12 columns">
+                    <label>Vendor
+                        <input name="vendor" type="text" placeholder="E.g. 'Apple'">
+                    </label>
+                </div>
+                <div class="large-12 columns">
+                    <label>Product type
+                        <input name="product_type" type="text" placeholder="E.g. 'Mobile Phone'">
+                    </label>
+                </div>
+                <div class="large-12 columns">
+                    <button type="button" class="success button submit">Submit</button>
+                    <a href="/" class="alert button">Cancel</a>
+                </div>
+            </div>  
+        </form>
+	</body>
+</html>
+

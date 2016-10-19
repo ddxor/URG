@@ -19,44 +19,10 @@
 
         <script type="text/javascript">
             $(function() {
-                $.getJSON('/microservice.php/products', function(responseObj, noop, jqXHR) {
-                    $('div.loading').fadeOut(function() {
-                        $('div.data').removeClass('hide').hide().fadeIn();
-                    });
-
-                    if (jqXHR.status != 200) {
-                        $('.apiError').removeClass('hide');
-                    }
-
-                    if (responseObj.products.length > 0) {
-                        $.each(responseObj.products, function(index, product) {
-                            var row = $('table.products tr.example').clone();
-                            
-                            $(row).find('td.title').html(product.title);
-                            $(row).find('td.bodyContent').html(product.body_html);
-                            $(row).find('td.vendor').html(product.vendor);
-                            $(row).find('td.productType').html(product.product_type);
-                            $(row).removeClass('hide example');
-
-                            $('table.products').append(row);
-                        });
-
-                        $('table.products').removeClass('hide');
-                    } else {
-                        $('.noProducts').removeClass('hide');
-                    }
-                });
+                var products = new productLoader();
+                products.init();
             });
         </script>
-        <style>
-            .hide {
-                display: none;
-            }
-
-            div.loading {
-                margin-top: 0.5em;
-            }
-        </style>
     </head>
     <body>
         <div class="loading">
@@ -78,6 +44,12 @@
 
             <div class="row">
                 <div class="large-12 columns">
+                    <a href="/create.html" class="button success">Create new</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns">
                     <table class="products responsive hide">
                         <tbody>
                             <tr>
@@ -88,9 +60,9 @@
                             </tr>
                             <tr class="example hide">
                                 <td class="title"></th>
-                                <td class="bodyContent"></th>
+                                <td class="body_html"></th>
                                 <td class="vendor"></th>
-                                <td class="productType"></th>
+                                <td class="product_type"></th>
                             </tr>
                         </tbody>
                     </table>
